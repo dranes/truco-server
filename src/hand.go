@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 //Most powerful cards in game
 const (
 	PericaValue = 15
@@ -19,32 +23,32 @@ func transform(card *Card, vira Card) {
 
 	if vira.value == 10 && vira.suit == card.suit && card.value == 11 {
 		card.gameValue = PericaValue
-		card.face = Perica
+		card.face = fmt.Sprintf("%-13s", Perica)
 	}
 
 	if vira.value == 10 && vira.suit == card.suit && card.value == 12 {
 		card.gameValue = PericoValue
-		card.face = Perico
+		card.face = fmt.Sprintf("%-13s", Perico)
 	}
 
 	if vira.value == 11 && vira.suit == card.suit && card.value == 10 {
 		card.gameValue = PericaValue
-		card.face = Perica
+		card.face = fmt.Sprintf("%-13s", Perica)
 	}
 
 	if vira.value == 11 && vira.suit == card.suit && card.value == 12 {
 		card.gameValue = PericoValue
-		card.face = Perico
+		card.face = fmt.Sprintf("%-13s", Perico)
 	}
 
 	if vira.suit == card.suit && card.value == 10 {
 		card.gameValue = PericaValue
-		card.face = Perica
+		card.face = fmt.Sprintf("%-13s", Perica)
 	}
 
 	if vira.suit == card.suit && card.value == 11 {
 		card.gameValue = PericoValue
-		card.face = Perica
+		card.face = fmt.Sprintf("%-13s", Perico)
 	}
 }
 

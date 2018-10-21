@@ -7,17 +7,22 @@ func main() {
 
 	deck.Shuffle()
 
-	player1, player2, player3, player4, vira := deck.Deal()
+	hand1, hand2, hand3, hand4, vira := deck.Deal()
 
-	player1Hand := NewHand(player1, vira)
-	player2Hand := NewHand(player2, vira)
-	player3Hand := NewHand(player3, vira)
-	player4Hand := NewHand(player4, vira)
+	player1Hand := NewHand(hand1, vira)
+	player2Hand := NewHand(hand2, vira)
+	player3Hand := NewHand(hand3, vira)
+	player4Hand := NewHand(hand4, vira)
 
-	fmt.Println(player1Hand.card1.face, player1Hand.card2.face, player1Hand.card3.face)
-	fmt.Println(player2Hand.card1.face, player2Hand.card2.face, player2Hand.card3.face)
-	fmt.Println(player3Hand.card1.face, player3Hand.card2.face, player3Hand.card3.face)
-	fmt.Println(player4Hand.card1.face, player4Hand.card2.face, player4Hand.card3.face)
+	player1 := NewPlayer("Player 1", player1Hand)
+	player2 := NewPlayer("Player 2", player2Hand)
+	player3 := NewPlayer("Player 3", player3Hand)
+	player4 := NewPlayer("Player 4", player4Hand)
+
+	fmt.Println(player1.showHand())
+	fmt.Println(player2.showHand())
+	fmt.Println(player3.showHand())
+	fmt.Println(player4.showHand())
 
 	fmt.Println(vira.face)
 }

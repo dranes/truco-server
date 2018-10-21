@@ -23,22 +23,22 @@ type Card struct {
 
 func face(suit int, value int) string {
 	if suit == Coins && value == 7 {
-		return "7 de oro"
+		return fmt.Sprintf("%-13s", "7 de oro")
 	}
 
 	if suit == Swords && value == 7 {
-		return "7 de espadas"
+		return fmt.Sprintf("%-13s", "7 de espadas")
 	}
 
 	if suit == Sticks && value == 1 {
-		return "Bastillo"
+		return fmt.Sprintf("%-13s", "Bastillo")
 	}
 
 	if suit == Swords && value == 1 {
-		return "Espadilla"
+		return fmt.Sprintf("%-13s", "Espadilla")
 	}
 
-	return fmt.Sprintf("%d %s ", value, suitType(suit))
+	return fmt.Sprintf("%-2d %-9s ", value, suitType(suit))
 }
 
 func suitType(suit int) string {
