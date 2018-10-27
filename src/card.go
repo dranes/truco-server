@@ -20,6 +20,7 @@ type Card struct {
 	gameValue    int
 	face         string
 	envisteValue int
+	belongsTo    *Hand
 }
 
 func face(suit int, value int) string {
@@ -110,7 +111,7 @@ func NewCard(suit, value int) Card {
 		gameValue = 14
 	}
 
-	card := Card{suit, value, gameValue, face(suit, value), envisteValue}
+	card := Card{suit, value, gameValue, face(suit, value), envisteValue, nil}
 
 	return card
 }

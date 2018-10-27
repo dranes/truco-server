@@ -19,10 +19,25 @@ func main() {
 	player3 := NewPlayer("Player 3", player3Hand)
 	player4 := NewPlayer("Player 4", player4Hand)
 
-	fmt.Println(player1.showHand())
-	fmt.Println(player2.showHand())
-	fmt.Println(player3.showHand())
-	fmt.Println(player4.showHand())
+	//construct board
 
-	fmt.Println(vira.face)
+	board := NewBoard(player1, player2, player3, player4, &vira)
+	var play int
+
+	//var cardPlayed *Card
+	endOfTurn := false
+	endOfGame := false
+
+	board.showGame()
+
+	for endOfGame == false {
+		fmt.Printf("Turn: %s> ", board.currentPlayer.name)
+		fmt.Scan(&play)
+		endOfTurn, endOfGame, _ = board.Play(play)
+
+		//board.showGame()
+		if endOfTurn {
+			board.showGame()
+		}
+	}
 }

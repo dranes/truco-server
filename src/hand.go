@@ -29,6 +29,7 @@ type Hand struct {
 	suitMapCards      map[int][]*Card
 	perico            *Card
 	perica            *Card
+	belongsTo         *Player
 }
 
 type byEnviste []Card
@@ -88,6 +89,10 @@ func (hand *Hand) transform(card *Card, vira Card) {
 func NewHand(cards []Card, vira Card) *Hand {
 
 	hand := new(Hand)
+	cards[0].belongsTo = hand
+	cards[1].belongsTo = hand
+	cards[2].belongsTo = hand
+
 	hand.card1 = &cards[0]
 	hand.card2 = &cards[1]
 	hand.card3 = &cards[2]
@@ -152,7 +157,6 @@ func NewHand(cards []Card, vira Card) *Hand {
 		//hay flor normal y corriente
 	}
 
-	//calculate enviste value
 	return hand
 
 }
