@@ -15,10 +15,11 @@ var Suits = []int{Swords, Sticks, Coins, Cups}
 
 //Card represent a single card in the game
 type Card struct {
-	suit      int
-	value     int
-	gameValue int
-	face      string
+	suit         int
+	value        int
+	gameValue    int
+	face         string
+	envisteValue int
 }
 
 func face(suit int, value int) string {
@@ -62,6 +63,7 @@ func suitType(suit int) string {
 //NewCard constructor for Card
 func NewCard(suit, value int) Card {
 	gameValue := 0
+	envisteValue := value
 
 	switch value {
 	case 4:
@@ -75,12 +77,15 @@ func NewCard(suit, value int) Card {
 	case 8:
 		gameValue = 5
 		value = 10
+		envisteValue = 0
 	case 9:
 		gameValue = 6
 		value = 11
+		envisteValue = 0
 	case 10:
 		gameValue = 7
 		value = 12
+		envisteValue = 0
 	case 1:
 		gameValue = 8
 	case 2:
@@ -105,7 +110,7 @@ func NewCard(suit, value int) Card {
 		gameValue = 14
 	}
 
-	card := Card{suit, value, gameValue, face(suit, value)}
+	card := Card{suit, value, gameValue, face(suit, value), envisteValue}
 
 	return card
 }
