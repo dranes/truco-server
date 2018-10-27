@@ -21,7 +21,7 @@ func NewPlayer(name string, hand *Hand) *Player {
 }
 
 func (player Player) showHand() string {
-	return fmt.Sprintf("%s %s %s %d %d", player.hand.card1.face, player.hand.card2.face, player.hand.card3.face, player.hand.envisteValue, player.hand.florValue)
+	return fmt.Sprintf("%s %s %s %-2d %-2d", player.hand.card1.face, player.hand.card2.face, player.hand.card3.face, player.hand.envisteValue, player.hand.florValue)
 }
 
 //PlayCard put a card in game

@@ -7,10 +7,13 @@ import (
 
 //Most powerful cards in game
 const (
-	PericaValue = 15
-	Perica      = "Perica"
-	PericoValue = 16
-	Perico      = "Perico"
+	PericaValue        = 15
+	Perica             = "Perica"
+	PericoValue        = 16
+	Perico             = "Perico"
+	PericaEnvisteValue = 29
+	PericoEnvisteValue = 30
+	EnvisteValue       = 20
 )
 
 //Hand 3 cards owned by a player
@@ -111,34 +114,41 @@ func NewHand(cards []Card, vira Card) *Hand {
 
 	//pendiente de calcular flor reservada
 
-	if len(hand.suitMapCards) == 3 {
-		//no hay enviste a menos que haya perico o perica
-
-	}
-
 	if len(hand.suitMapCards) == 2 {
 		for _, cards := range hand.suitMapCards {
 			if len(cards) == 2 {
 				for _, card := range cards {
 					hand.envisteValue += card.envisteValue
 				}
-				hand.envisteValue += 20
+
+				if hand.perica != nil { //flor con perica
+					hand.flor = true
+					hand.florValue = PericaEnvisteValue + cards[0].envisteValue + cards[1].envisteValue
+				}
+
+				if hand.perico != nil {
+					hand.flor = true
+					hand.florValue = PericoEnvisteValue + cards[0].envisteValue + cards[1].envisteValue
+				}
+
+				hand.envisteValue += EnvisteValue
 			}
 		}
 
 		if hand.perica != nil {
 			//vale 29
-			hand.envisteValue = 29 + hand.cardsOrderByValue[0].envisteValue
+			hand.envisteValue = PericaEnvisteValue + hand.cardsOrderByValue[0].envisteValue
 		}
 
 		if hand.perico != nil {
 			//vale 30
-			hand.envisteValue = 30 + hand.cardsOrderByValue[0].envisteValue
+			hand.envisteValue = PericoEnvisteValue + hand.cardsOrderByValue[0].envisteValue
 		}
-		//hay enviste o flor a menos que haya perico o perica
 	}
 
 	if len(hand.suitMapCards) == 1 {
+		hand.flor = true
+		hand.florValue = cards[0].envisteValue + cards[1].envisteValue + cards[2].envisteValue + EnvisteValue
 		//hay flor normal y corriente
 	}
 
