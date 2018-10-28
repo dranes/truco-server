@@ -23,6 +23,7 @@ func main() {
 
 	board := NewBoard(player1, player2, player3, player4, &vira)
 	var play int
+	var err error
 
 	//var cardPlayed *Card
 	endOfTurn := false
@@ -33,7 +34,11 @@ func main() {
 	for endOfGame == false {
 		fmt.Printf("Turn: %s> ", board.currentPlayer.name)
 		fmt.Scan(&play)
-		endOfTurn, endOfGame, _ = board.Play(play)
+		endOfTurn, endOfGame, _, err = board.Play(play)
+
+		if err != nil {
+			fmt.Println(err)
+		}
 
 		//board.showGame()
 		if endOfTurn {

@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 //Board the game itself
 type Board struct {
@@ -21,8 +24,9 @@ type Board struct {
 }
 
 //Play put a card in game
-func (board *Board) Play(cardPosition int) (bool, bool, *Card) {
+func (board *Board) Play(cardPosition int) (bool, bool, *Card, error) {
 	var cardInPlay *Card
+	var err error
 
 	endOfTurn := false
 	endOfGame := false
@@ -38,7 +42,11 @@ func (board *Board) Play(cardPosition int) (bool, bool, *Card) {
 		cardInPlay = board.currentPlayer.hand.card3
 		board.currentPlayer.hand.card3 = nil
 	default:
-		panic("Invalid card")
+		err = errors.New("Invalid card")
+	}
+
+	if cardInPlay == nil {
+		return false, false, nil, errors.New("Invalid card")
 	}
 
 	board.currentPlayer = board.currentPlayer.rightPlayer
@@ -54,7 +62,7 @@ func (board *Board) Play(cardPosition int) (bool, bool, *Card) {
 		endOfGame = true
 	}
 
-	return endOfTurn, endOfGame, cardInPlay
+	return endOfTurn, endOfGame, cardInPlay, err
 }
 
 func (board *Board) endOfTurn() {
@@ -71,10 +79,15 @@ func (board *Board) endOfTurn() {
 }
 func (board *Board) showGame() {
 	fmt.Println("----------------------------------------------")
-	fmt.Println(board.player1.showHand())
-	fmt.Println(board.player2.showHand())
-	fmt.Println(board.player3.showHand())
-	fmt.Println(board.player4.showHand())
+	var pointer *Player
+
+	for pointer != board.currentPlayer {
+		if pointer == nil {
+			pointer = board.currentPlayer
+		}
+		fmt.Printf("%s --> %s \n", pointer.name, pointer.showHand())
+		pointer = pointer.rightPlayer
+	}
 
 	//fmt.Println(board.vira.face)
 }
