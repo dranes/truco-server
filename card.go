@@ -1,4 +1,4 @@
-package main
+package truco
 
 import "fmt"
 
@@ -18,7 +18,7 @@ type Card struct {
 	suit         int
 	value        int
 	gameValue    int
-	face         string
+	Face         string
 	envisteValue int
 	belongsTo    *Hand
 }

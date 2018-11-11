@@ -1,4 +1,4 @@
-package main
+package truco
 
 import (
 	"fmt"
@@ -50,42 +50,42 @@ func (hand *Hand) transform(card *Card, vira Card) {
 
 	if vira.value == 10 && vira.suit == card.suit && card.value == 11 {
 		card.gameValue = PericaValue
-		card.face = fmt.Sprintf("%-13s", Perica)
+		card.Face = fmt.Sprintf("%-13s", Perica)
 		hand.perica = card
 		return
 	}
 
 	if vira.value == 10 && vira.suit == card.suit && card.value == 12 {
 		card.gameValue = PericoValue
-		card.face = fmt.Sprintf("%-13s", Perico)
+		card.Face = fmt.Sprintf("%-13s", Perico)
 		hand.perico = card
 		return
 	}
 
 	if vira.value == 11 && vira.suit == card.suit && card.value == 10 {
 		card.gameValue = PericaValue
-		card.face = fmt.Sprintf("%-13s", Perica)
+		card.Face = fmt.Sprintf("%-13s", Perica)
 		hand.perica = card
 		return
 	}
 
 	if vira.value == 11 && vira.suit == card.suit && card.value == 12 {
 		card.gameValue = PericoValue
-		card.face = fmt.Sprintf("%-13s", Perico)
+		card.Face = fmt.Sprintf("%-13s", Perico)
 		hand.perico = card
 		return
 	}
 
 	if vira.suit == card.suit && card.value == 10 {
 		card.gameValue = PericaValue
-		card.face = fmt.Sprintf("%-13s", Perica)
+		card.Face = fmt.Sprintf("%-13s", Perica)
 		hand.perica = card
 		return
 	}
 
 	if vira.suit == card.suit && card.value == 11 {
 		card.gameValue = PericoValue
-		card.face = fmt.Sprintf("%-13s", Perico)
+		card.Face = fmt.Sprintf("%-13s", Perico)
 		hand.perico = card
 		return
 	}
