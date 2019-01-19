@@ -1,7 +1,6 @@
 package truco
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -15,6 +14,7 @@ type Command interface {
 type Board struct {
 	firstTurn            *Player
 	CurrentPlayer        *Player
+	CurrentPlayerHolder  *Player
 	currentPlayerCommand *Player
 	currentTurn          int
 	team1Score           int
@@ -37,22 +37,32 @@ type Board struct {
 	commands             map[string]Command
 	commandLocked        Command
 	lastCardPlayed       *Card
+	resolved             bool
 }
 
 //Play put a card in game
-func (board *Board) Play(command string, arg int) (bool, bool, *Card, error) { //cardPosition should be command
+func (board *Board) Play(command string, arg int) (bool, bool, *Card, bool, error) { //cardPosition should be command
 
 	var err error
+	var handler Command
 	endOfTurn := false
 	endOfGame := false
 
-	handler, key := board.commands[command]
-
-	if key == false {
-		err = errors.New("invalid command")
+	if board.resolved == false {
+		handler = board.commands[board.activeCommand]
+	} else {
+		handler = board.commands[command]
+		board.activeCommand = command
+		board.CurrentPlayerHolder = board.CurrentPlayer
 	}
 
-	handler.Run(board, command, arg)
+	/*
+		if key == false {
+			err = errors.New("invalid command")
+		}
+	*/
+
+	board.resolved = handler.Run(board, command, arg)
 
 	if len(board.playByTurn[board.currentTurn]) == 4 { //end of turn
 		board.endOfTurn()
@@ -63,7 +73,7 @@ func (board *Board) Play(command string, arg int) (bool, bool, *Card, error) { /
 		endOfGame = true
 	}
 
-	return endOfTurn, endOfGame, board.lastCardPlayed, err
+	return endOfTurn, endOfGame, board.lastCardPlayed, board.resolved, err
 }
 
 func (board *Board) endOfTurn() {
@@ -148,6 +158,7 @@ func NewBoard(player1 *Player, player2 *Player, player3 *Player, player4 *Player
 
 	board.CurrentPlayer = player1
 	board.firstTurn = player1
+	board.CurrentPlayerHolder = player1
 
 	player1.rightPlayer = player2
 	player2.rightPlayer = player3
@@ -172,6 +183,8 @@ func NewBoard(player1 *Player, player2 *Player, player3 *Player, player4 *Player
 	board.commands[truco.Handler()] = enviste
 	board.commands[flor.Handler()] = enviste
 	board.commands[play.Handler()] = play
+
+	board.resolved = true
 
 	return board
 }

@@ -31,6 +31,7 @@ func main() {
 	var card *truco.Card
 	var command string
 	var arg int
+	var resolved bool
 
 	//var cardPlayed *Card
 	endOfTurn := false
@@ -42,9 +43,9 @@ func main() {
 		fmt.Printf("Turn: %s> ", board.CurrentPlayer.Name)
 		fmt.Scanf("%s %d", &command, &arg)
 
-		endOfTurn, endOfGame, card, err = board.Play(command, arg)
+		endOfTurn, endOfGame, card, resolved, err = board.Play(command, arg)
 
-		if err == nil {
+		if err == nil && resolved == true && card != nil {
 			fmt.Println(card.Face)
 		}
 
